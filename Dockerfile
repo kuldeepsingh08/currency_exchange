@@ -1,4 +1,4 @@
-FROM openjdk:8
+FROM jdk:11.0.13
 EXPOSE 8080
-ADD target/currency-exchanger.jar currency-exchanger.jar
-ENTRYPOINT ["java", "-jar", "/currency-exchanger.jar"]
+ADD target/jenkins-docker-integration.jar jenkins-docker-integration.jar
+ENTRYPOINT ["java", "-jar", "/currency.jar"]
