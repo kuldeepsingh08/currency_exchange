@@ -1,9 +1,45 @@
 <div class="panel_container">
   <div class="panel_left">
-    <div class="formgroup">
+    <div class="formgroup amount">
       <label for="amount">Amount</label>
-    <input id="amount" type="number" placeholder="Enter amount">
+      <input id="amount" type="number" placeholder="Enter amount" />
+    </div>
+    <div class="formgroup display">
+        <span>1.00 EUR = XX.XX USD</span>
     </div>
   </div>
-  <div class="panel_right"></div>
+  <div class="panel_right">
+      <div class="first_row">
+        <div class="formgroup">
+          <label for="form">From</label>
+          <select name="" id="from">
+            <option value="">EUR</option>
+            <option value="">USD</option>
+          </select>
+        </div>
+        <div class="converter_img">
+          <span>
+            <i class="fa fa-arrows-h fa-3x"></i>
+          </span>
+        </div>
+        <div class="formgroup">
+          <label for="to">To</label>
+          <select name="" id="to">
+            <option value="">EUR</option>
+            <option value="">USD</option>
+          </select>
+        </div>
+      </div>
+      <div class="second_row">
+        <button>Convert</button>
+      </div>
+      <div class="third_row">
+        <div class="converted_val">
+          <span>XX.XX USD</span>
+        </div>
+        <div class="more_details">
+          <button>More Details</button>
+        </div>
+      </div>
+    </div>
 </div>

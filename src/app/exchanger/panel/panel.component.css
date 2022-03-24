@@ -1,6 +1,83 @@
 .panel_container {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 label {
   display: block;
+}
+/* .right_container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+} */
+.panel_left, .panel_right {
+  flex-grow: 4;
+  display: flex;
+  flex-direction: column;
+}
+.first_row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.second_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.third_row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 7vw;
+}
+.panel_left .formgroup {
+  padding-left: 10px;
+}
+.amount {
+  padding-bottom: 30px;
+}
+.display {
+  margin-top: 30px;
+  padding: 7px 0px;
+    border: 2px solid;
+    width: 100%;
+    text-align: center;
+}
+input {
+  text-align: center;
+  }
+  .amount input {
+    width: 100%;
+    padding: 5px;
+  }
+.first_row select {
+  padding: 10px 50px;
+}
+.second_row button {
+  width: 100%;
+    margin: 5px 7vw;
+    padding: 5px;
+    background-color: blue;
+    color: #fff;
+    border: 2px solid blue;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.converted_val {
+  padding: 15px 40px;
+    border: 2px solid;
+    width: 100%;
+    text-align: center;
+}
+.more_details {
+  margin-left: 10px;
+}
+.more_details button {
+  background-color: blue;
+  border: 2px solid blue;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 3px;
 }

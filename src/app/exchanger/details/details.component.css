@@ -1,0 +1,15 @@
+.home {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.home h3 {
+  padding: 10px 0;
+}
+.home button {
+  padding: 5px 15px;
+  color: #fff;
+  background-color: blue;
+  border: 2px solid blue;
+  border-radius: 3px;
+}
