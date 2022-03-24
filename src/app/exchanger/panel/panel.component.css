@@ -1,0 +1,6 @@
+.panel_container {
+  display: flex;
+}
+label {
+  display: block;
+}
