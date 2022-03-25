@@ -12,9 +12,9 @@
       <div class="first_row">
         <div class="formgroup">
           <label for="form">From</label>
-          <select name="" id="from">
-            <option value="">EUR</option>
-            <option value="">USD</option>
+          <select name="" id="from" value="EUR">
+            <option [value]="item.symbol" *ngFor="let item of allCurrencyList">{{item.symbol}}</option>
+            <!-- <option value="">USD</option> -->
           </select>
         </div>
         <div class="converter_img">

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ALLCURRENCY } from 'src/app/modals';
 
 @Component({
   selector: 'app-panel',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./panel.component.css']
 })
 export class PanelComponent implements OnInit {
+  @Input() allCurrencyList: any;
 
   constructor() { }
 
