@@ -6,10 +6,14 @@
     <nav>
       <ul>
         <li>
-          <button>EUR-USD Details</button>
+          <button routerLink="home/details"
+          [queryParams]="{val: {from: 'EUR', to: 'USD'} | json}"
+          (click)="openDetails('EUR', 'USD')">EUR-USD Details</button>
         </li>
         <li>
-          <button>EUR-GBP Details</button>
+          <button routerLink="home/details"
+          [queryParams]="{val: {from: 'EUR', to: 'GBP'} | json}"
+          (click)="openDetails('EUR', 'GBP')">EUR-GBP Details</button>
         </li>
       </ul>
     </nav>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  openDetails(from: string, to: string): void {
+    this.api.detailsVal$.next({
+      from,
+      to
+    });
+    // this.api.showDetails$.next(false);
   }
 
 }

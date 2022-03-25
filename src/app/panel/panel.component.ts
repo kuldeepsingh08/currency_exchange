@@ -32,6 +32,13 @@ export class PanelComponent implements OnInit {
         this.showBtn = false;
       }
     })
+    this.api.detailsVal$.subscribe((res: any) => {
+      if (res && JSON.stringify(res) !== '{}') {
+        this.fromValue = res.from;
+        this.toValue = res.to;
+        this.getLatestValue();
+      }
+    })
   }
 
   swapConversion(): void {
