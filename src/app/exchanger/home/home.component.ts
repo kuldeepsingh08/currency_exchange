@@ -24,7 +24,9 @@ export class HomeComponent implements OnInit {
     // this.getCurrencySymbols();
     this.api.historyEvent$.subscribe(res => {
       this.historyArr = this.api.getSessionData();
+      console.log('checkHistory', this.historyArr);
     })
+    this.api.showDetails$.next(true);
   }
 
   // getCurrencySymbols(): void {

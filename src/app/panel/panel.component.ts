@@ -18,12 +18,20 @@ export class PanelComponent implements OnInit {
   allCurrency: any;
   convertedValue: any = '--';
   historyArr: any = [];
+  showBtn = true;
 
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.getCurrencySymbols();
     this.getLatestValue();
+    this.api.showDetails$.subscribe(res => {
+      if (res) {
+        this.showBtn = true;
+      } else {
+        this.showBtn = false;
+      }
+    })
   }
 
   swapConversion(): void {
@@ -87,6 +95,10 @@ export class PanelComponent implements OnInit {
         this.convertedValue = 'ERROR';
       }
     });
+  }
+
+  moreDetails(): void {
+
   }
 
 }

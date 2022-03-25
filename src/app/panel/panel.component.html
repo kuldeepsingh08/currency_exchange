@@ -13,7 +13,8 @@
       <div class="first_row">
         <div class="formgroup">
           <label for="form">From</label>
-          <select name="" id="from" [(ngModel)]="fromValue" (change)="getLatestValue()">
+          <select name="" id="from" [(ngModel)]="fromValue" (change)="getLatestValue()"
+          [disabled]="!showBtn">
             <option [value]="item.symbol" *ngFor="let item of allCurrency">{{item.symbol}}</option>
           </select>
         </div>
@@ -41,8 +42,9 @@
         <div class="converted_val">
           <span>{{convertedValue}} {{toValue}}</span>
         </div>
-        <div class="more_details">
-          <button>More Details</button>
+        <div class="more_details" *ngIf="showBtn">
+          <button routerLink="home/details"
+          [queryParams]="{val: {from: fromValue, to: toValue} | json}">More Details</button>
         </div>
       </div>
     </div>

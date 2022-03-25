@@ -9,6 +9,8 @@ export class ApiService {
   fixerApiKey = '48c196f6a66f33d606d995d7ddb09ea5';
   fixerUrl = 'http://data.fixer.io/api';
   historyEvent$ = new BehaviorSubject('1');
+  showDetails$ = new BehaviorSubject(true);
+  detailsVal$ = new BehaviorSubject({});
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +29,7 @@ export class ApiService {
     if (data) {
       return JSON.parse(data);
     } else {
-      return "[]";
+      return [];
     }
   }
 }
