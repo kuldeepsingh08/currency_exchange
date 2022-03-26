@@ -88,3 +88,12 @@ input {
 .converter_img span i {
   cursor: pointer;
 }
+.converter_img.buttonDisable span i {
+  cursor: not-allowed;
+  color: #8d8989;
+}
+.invalid {
+  color: red;
+  padding-top: 2px;
+  font-size: 12px;
+}

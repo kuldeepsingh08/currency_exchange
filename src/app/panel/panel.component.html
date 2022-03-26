@@ -4,6 +4,9 @@
       <label for="amount">Amount</label>
       <input id="amount" type="number" placeholder="Enter amount"
       [formControl]="enteredAmount" />
+      <div class="invalid" *ngIf="enteredAmount.errors && enteredAmount.errors.required">
+        Enter amount
+      </div>
     </div>
     <div class="formgroup display">
         <span>1.00 {{fromValue}} = {{latestToValue}} {{toValue}}</span>
@@ -18,9 +21,9 @@
             <option [value]="item.symbol" *ngFor="let item of allCurrency">{{item.symbol}}</option>
           </select>
         </div>
-        <div class="converter_img">
+        <div class="converter_img" [ngClass]="{'buttonDisable': !showBtn}">
           <span>
-            <i class="fa fa-arrows-h fa-3x" (click)="swapConversion()"></i>
+            <i class="fa fa-arrows-h fa-3x" (click)="showBtn ? swapConversion() : $event.preventDefault()"></i>
           </span>
         </div>
         <div class="formgroup">
@@ -44,7 +47,7 @@
         </div>
         <div class="more_details" *ngIf="showBtn">
           <button routerLink="home/details"
-          [queryParams]="{val: {from: fromValue, to: toValue} | json}">More Details</button>
+          [queryParams]="{val: {from: fromValue, to: toValue, fromFullName: selectedFromFullName} | json}">More Details</button>
         </div>
       </div>
     </div>

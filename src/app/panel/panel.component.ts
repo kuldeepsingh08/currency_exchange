@@ -19,6 +19,8 @@ export class PanelComponent implements OnInit {
   convertedValue: any = '--';
   historyArr: any = [];
   showBtn = true;
+  selectedFromFullName = '';
+  symbolsObj: any;
 
   constructor(private api: ApiService) { }
 
@@ -43,12 +45,16 @@ export class PanelComponent implements OnInit {
 
   swapConversion(): void {
     const toSwap = this.fromValue;
+    this.selectedFromFullName = this.symbolsObj[toSwap];
     this.fromValue = this.toValue;
     this.toValue = toSwap;;
     this.getLatestValue();
   }
 
   getLatestValue(): void {
+    if (!this.showBtn) {
+      this.selectedFromFullName = this.symbolsObj[this.fromValue];
+    }
     const params = `base=${this.fromValue}&symbols=${this.toValue}`;
     this.api.get('latest', params).pipe(take(1)).subscribe(res => {
       if (res.success) {
@@ -61,14 +67,15 @@ export class PanelComponent implements OnInit {
 
   getCurrencySymbols(): void {
     this.api.get('symbols').pipe(take(1)).subscribe((res: any) => {
-      const symbolsObj = res.symbols;
+      this.symbolsObj = res.symbols;
       if (res && res.success) {
+        this.selectedFromFullName = this.symbolsObj.EUR;
         const arr = [];
-        for (const key in symbolsObj) {
+        for (const key in this.symbolsObj) {
           if (key) {
             arr.push({
               symbol: key,
-              value: symbolsObj[key]
+              value: this.symbolsObj[key]
             });
           }
         }
@@ -79,6 +86,10 @@ export class PanelComponent implements OnInit {
   }
 
   convert(): void {
+    if (this.enteredAmount.errors) {
+      console.log('invalidAmount', this.enteredAmount);
+      return;
+    }
     const params = `from=${this.fromValue}&to=${this.toValue}&amount=${this.enteredAmount.value}`;
     this.api.get('convert', params).pipe(take(1)).subscribe(res => {
       if (res && res.success) {
