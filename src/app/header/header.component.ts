@@ -14,12 +14,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  openDetails(from: string, to: string): void {
+  openDetails(from: string, to: string, fromFullName: string): void {
     this.api.detailsVal$.next({
       from,
-      to
+      to,
+      fromFullName
     });
-    // this.api.showDetails$.next(false);
   }
 
 }

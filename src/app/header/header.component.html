@@ -1,19 +1,21 @@
 <div class="header_container">
   <header>
     <div>
-      <span><i class="fa fa-money fa-3x" aria-hidden="true"></i></span>
+      <span><i class="fa fa-money fa-3x" aria-hidden="true"
+        style="cursor: pointer;"
+        routerLink="/"></i></span>
     </div>
     <nav>
       <ul>
         <li>
           <button routerLink="home/details"
           [queryParams]="{val: {from: 'EUR', to: 'USD', fromFullName: 'Euro'} | json}"
-          (click)="openDetails('EUR', 'USD')">EUR-USD Details</button>
+          (click)="openDetails('EUR', 'USD', 'Euro')">EUR-USD Details</button>
         </li>
         <li>
           <button routerLink="home/details"
           [queryParams]="{val: {from: 'EUR', to: 'GBP', fromFullName: 'Euro'} | json}"
-          (click)="openDetails('EUR', 'GBP')">EUR-GBP Details</button>
+          (click)="openDetails('EUR', 'GBP', 'Euro')">EUR-GBP Details</button>
         </li>
       </ul>
     </nav>

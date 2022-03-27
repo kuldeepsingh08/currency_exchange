@@ -9,14 +9,21 @@
   grid-template-rows: repeat(3, 1fr);
   /* grid-column-gap: 12px; */
   /* grid-row-gap: 12px; */
-  margin-top: 300px;
+  margin-top: 10px;
   }
   .child {
-    padding: 50px;
+    padding: 30px 100px;
+    text-align: center;
+    border: 1px solid gray;
+    margin: 5px 50px;
+    border-radius: 5px;
   }
   .home_panel {
     position: fixed;
     width: 99%;
     background-color: #fff;
-    top: 80px;
+    top: 72px;
+  }
+  .history_container {
+    margin-top: 300px;
   }

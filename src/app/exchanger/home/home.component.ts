@@ -23,10 +23,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    // this.getCurrencySymbols();
     this.subscriptions$ = this.api.historyEvent$.subscribe(res => {
       this.historyArr = this.api.getSessionData();
-      console.log('checkHistory', this.historyArr);
     })
     this.api.showDetails$.next(true);
   }

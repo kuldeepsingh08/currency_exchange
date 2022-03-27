@@ -6,14 +6,13 @@ import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  fixerApiKey = '48c196f6a66f33d606d995d7ddb09ea5';
+  fixerApiKey = '941a8b11bb4cb0f2c65f1de1609306b0';
   fixerUrl = 'http://data.fixer.io/api';
   historyEvent$ = new BehaviorSubject('1');
   showDetails$ = new BehaviorSubject(true);
   detailsVal$ = new BehaviorSubject({});
-  fixerPastYearApi = 'http://data.fixer.io/api/2013-12-24?access_key=&symbols=USD,CAD,EUR'
   fixerPastYearApiKey = 'f540df05b442f1dcbec7eb549eb8e79c';
-  fromValueChanges$ = new Subject();
+  toValueChanges$ = new Subject();
 
   constructor(private http: HttpClient) { }
 

@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   homeData: any;
   previousYearDataList: Array<string> = [];
   subscriptions$!: Subscription;
+  subscriptions2$!: Subscription;
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -49,15 +50,21 @@ export class DetailsComponent implements OnInit, OnDestroy {
     const data = this.route.snapshot.queryParams.val;
     this.homeData = JSON.parse(data);
     this.barChartData.datasets[0].label = this.homeData.to;
-    console.log('details data', this.homeData);
     this.getPastYearMonthlyData();
-    this.subscriptions$ = this.api.fromValueChanges$.subscribe(res => {
+    this.subscriptions$ = this.api.toValueChanges$.subscribe(res => {
       if (res) {
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>From Value changes', res);
         this.homeData.to = res;
         this.getPastYearMonthlyData();
       }
     })
+    this.subscriptions2$ = this.api.detailsVal$.subscribe((res: any) => {
+      if (res && res.fromFullName) {
+        this.homeData.fromFullName = res.fromFullName;
+        this.homeData.to = res.to;
+        this.homeData.from = res.from;
+        this.chart?.update();
+      }
+    });
   }
 
   getPastYearMonthlyData(): void{
@@ -83,29 +90,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.api.getPastYearData(prevDateArr[11], param)
       ]))
     ).subscribe(responseList => {
-      this.previousYearDataList.push(responseList[0]);
-      this.previousYearDataList.push(responseList[1]);
-      this.previousYearDataList.push(responseList[2]);
-      this.previousYearDataList.push(responseList[3]);
-      this.previousYearDataList.push(responseList[4]);
-      this.previousYearDataList.push(responseList[5]);
-      this.previousYearDataList.push(responseList[6]);
-      this.previousYearDataList.push(responseList[7]);
-      this.previousYearDataList.push(responseList[8]);
-      this.previousYearDataList.push(responseList[9]);
-      this.previousYearDataList.push(responseList[10]);
-      this.previousYearDataList.push(responseList[11]);
+      this.previousYearDataList = [...responseList];
       const dataSet1: any = [];
-      // const dataSet2: any = [];
       this.previousYearDataList.forEach((element: any) => {
          dataSet1.push(element.rates[this.homeData.to])
-        //  dataSet2.push(element.rates[this.homeData.to]);
       });
       this.barChartData.datasets[0].data = dataSet1;
       this.barChartData.datasets[0].label = this.homeData.to;
-      // this.barChartData.datasets[1].data = dataSet2;
-      // this.barChartData.datasets[1].label = this.homeData.to;
-      console.log('checkBarChartData', this.barChartData);
       this.chart?.update();
     })
   }
@@ -121,6 +112,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     try {
       this.subscriptions$.unsubscribe();
+      this.subscriptions2$.unsubscribe();
     } catch (error) {
       console.log(error);
     }

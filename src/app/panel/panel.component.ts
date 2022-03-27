@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { ApiService } from 'src/app/api.service';
@@ -9,8 +9,7 @@ import { ALLCURRENCY } from 'src/app/modals';
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.css']
 })
-export class PanelComponent implements OnInit {
-  // @Input() allCurrencyList: any;
+export class PanelComponent implements OnInit, OnDestroy {
   fromValue = 'EUR';
   toValue = 'USD'
   latestToValue: any = '';
@@ -21,12 +20,17 @@ export class PanelComponent implements OnInit {
   showBtn = true;
   selectedFromFullName = '';
   symbolsObj: any;
+  allRatesObj: any;
+  intervalTimer: any;
+  fetchNewRates = true;
 
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
+    this.intervalTimer = setInterval(() => {
+      this.fetchNewRates = true;
+    }, 300000);
     this.getCurrencySymbols();
-    this.getLatestValue();
     this.api.showDetails$.subscribe(res => {
       if (res) {
         this.showBtn = true;
@@ -38,6 +42,7 @@ export class PanelComponent implements OnInit {
       if (res && JSON.stringify(res) !== '{}') {
         this.fromValue = res.from;
         this.toValue = res.to;
+        this.selectedFromFullName = res.fromFullName;
         this.getLatestValue();
       }
     })
@@ -45,32 +50,25 @@ export class PanelComponent implements OnInit {
 
   swapConversion(): void {
     const toSwap = this.fromValue;
-    this.selectedFromFullName = this.symbolsObj[toSwap];
     this.fromValue = this.toValue;
-    this.toValue = toSwap;;
+    this.toValue = toSwap;
+    this.selectedFromFullName = this.symbolsObj[this.fromValue];
     this.getLatestValue();
   }
 
   getLatestValue(): void {
-    if (!this.showBtn) {
+    if (this.showBtn) {
       this.selectedFromFullName = this.symbolsObj[this.fromValue];
-      this.api.fromValueChanges$.next(this.toValue);
+      this.api.toValueChanges$.next(this.toValue);
     }
-    const params = `base=${this.fromValue}&symbols=${this.toValue}`;
-    this.api.get('latest', params).pipe(take(1)).subscribe(res => {
-      if (res.success) {
-        this.latestToValue = res.rates[this.toValue];
-      } else {
-        this.latestToValue = 'ERROR'
-      }
-    });
+    this.getAllSymbolLatestValue();
   }
 
   getCurrencySymbols(): void {
     this.api.get('symbols').pipe(take(1)).subscribe((res: any) => {
       this.symbolsObj = res.symbols;
       if (res && res.success) {
-        this.selectedFromFullName = this.symbolsObj.EUR;
+        this.selectedFromFullName = this.symbolsObj[this.fromValue];
         const arr = [];
         for (const key in this.symbolsObj) {
           if (key) {
@@ -80,44 +78,61 @@ export class PanelComponent implements OnInit {
             });
           }
         }
-        console.log('checkValue', arr);
         this.allCurrency = arr;
+        this.getLatestValue();
       }
     });
   }
 
-  convert(): void {
+  getConversion(convertBtnClick?: boolean): void{
+    const eur1 = this.allRatesObj[this.fromValue];
+    const eur2 = this.allRatesObj[this.toValue];
+    this.latestToValue = eur2 / eur1;
+    this.convertedValue = this.latestToValue * this.enteredAmount.value
+    if (convertBtnClick) {
+      this.setConvertedHistory();
+    }
+  }
+
+  getAllSymbolLatestValue(): void{
     if (this.enteredAmount.errors) {
-      console.log('invalidAmount', this.enteredAmount);
       return;
     }
-    const params = `from=${this.fromValue}&to=${this.toValue}&amount=${this.enteredAmount.value}`;
-    this.api.get('convert', params).pipe(take(1)).subscribe(res => {
-      if (res && res.success) {
-        this.convertedValue = res.query.amount;
-        const historyObj = {
-          from: this.fromValue,
-          to: this.toValue,
-          value: this.convertedValue,
-          queryValue: this.enteredAmount.value
-        };
-        this.historyArr = this.api.getSessionData();
-        if (this.historyArr.length >= 9) {
-          this.historyArr.length = 8;
-          this.historyArr.unshift(historyObj);
+    if (this.fetchNewRates) {
+      this.api.get('latest').pipe(take(1)).subscribe(response => {
+        if (response && response.success) {
+          this.fetchNewRates = false;
+          this.allRatesObj = response.rates;
+          this.getConversion();
         } else {
-          this.historyArr.unshift(historyObj);
+          this.latestToValue = 'ERROR';
         }
-        sessionStorage.setItem('historyData', JSON.stringify(this.historyArr));
-        this.api.historyEvent$.next('1');
-      } else {
-        this.convertedValue = 'ERROR';
-      }
-    });
+      });
+    } else {
+      this.getConversion();
+    }
   }
 
-  moreDetails(): void {
+  ngOnDestroy(): void {
+    clearInterval(this.intervalTimer);
+  }
 
+  setConvertedHistory(): void {
+      const historyObj = {
+        from: this.fromValue,
+        to: this.toValue,
+        value: this.convertedValue,
+        queryValue: this.enteredAmount.value
+      };
+      this.historyArr = this.api.getSessionData();
+      if (this.historyArr.length >= 9) {
+        this.historyArr.length = 8;
+        this.historyArr.unshift(historyObj);
+      } else {
+        this.historyArr.unshift(historyObj);
+      }
+      sessionStorage.setItem('historyData', JSON.stringify(this.historyArr));
+      this.api.historyEvent$.next('1');
   }
 
 }

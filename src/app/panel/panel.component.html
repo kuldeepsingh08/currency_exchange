@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="formgroup display">
-        <span>1.00 {{fromValue}} = {{latestToValue}} {{toValue}}</span>
+        <span>1.00 {{fromValue}} = {{latestToValue && latestToValue !== 'ERROR' ? (latestToValue | number) : latestToValue}} {{toValue}}</span>
     </div>
   </div>
   <div class="panel_right">
@@ -39,11 +39,11 @@
         </div>
       </div>
       <div class="second_row">
-        <button (click)="convert()">Convert</button>
+        <button (click)="getConversion(true)">Convert</button>
       </div>
       <div class="third_row">
         <div class="converted_val">
-          <span>{{convertedValue}} {{toValue}}</span>
+          <span>{{convertedValue !== '--' && convertedValue !== 'ERROR' ? (convertedValue | number) : convertedValue}} {{toValue}}</span>
         </div>
         <div class="more_details" *ngIf="showBtn">
           <button routerLink="home/details"
