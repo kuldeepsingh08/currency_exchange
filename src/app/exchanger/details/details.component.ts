@@ -38,7 +38,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   public barChartData: ChartData<'bar'> = {
     labels: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
     datasets: [
-      { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
+      { data: [], label: '' },
     ]
   };
 
@@ -48,6 +48,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.api.showDetails$.next(false);
     const data = this.route.snapshot.queryParams.val;
     this.homeData = JSON.parse(data);
+    this.barChartData.datasets[0].label = this.homeData.to;
     console.log('details data', this.homeData);
     this.getPastYearMonthlyData();
     this.subscriptions$ = this.api.fromValueChanges$.subscribe(res => {

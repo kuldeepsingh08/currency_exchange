@@ -11,3 +11,8 @@ body {
 button {
   cursor: pointer;
 }
+button:hover {
+  background-color: #0000ffb3 !important;
+  border: 2px solid #0000ffb3 !important;
+  color: #fff !important
+}
