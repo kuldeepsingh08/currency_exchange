@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/shared/service/api.service';
 import { ALLCURRENCY } from 'src/app/modals';
 
 @Component({

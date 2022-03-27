@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../api.service';
+import { ApiService } from 'src/app/shared/service/api.service';
 
 @Component({
   selector: 'app-header',

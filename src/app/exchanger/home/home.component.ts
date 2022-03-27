@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/shared/service/api.service';
 import { take } from 'rxjs/operators';
 import { ALLCURRENCY } from 'src/app/modals';
 import { Subscription } from 'rxjs';
