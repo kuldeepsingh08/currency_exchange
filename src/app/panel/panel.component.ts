@@ -54,6 +54,7 @@ export class PanelComponent implements OnInit {
   getLatestValue(): void {
     if (!this.showBtn) {
       this.selectedFromFullName = this.symbolsObj[this.fromValue];
+      this.api.fromValueChanges$.next(this.toValue);
     }
     const params = `base=${this.fromValue}&symbols=${this.toValue}`;
     this.api.get('latest', params).pipe(take(1)).subscribe(res => {

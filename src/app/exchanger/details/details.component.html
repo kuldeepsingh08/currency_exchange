@@ -5,5 +5,19 @@
 </div>
 <!-- <app-panel></app-panel> -->
 <div class="chart_container">
-  <h3>{{homeData.from}} - {{homeData.to}} Past year History</h3>
+  <div class="header_and_chart">
+    <h3>1 {{homeData.from}} - {{homeData.to}} Past year history</h3>
+    <div>
+      <div>
+        <div style="display: block">
+          <canvas baseChart
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [type]="barChartType">
+          </canvas>
+        </div>
+        <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+      </div>
+    </div>
+  </div>
 </div>
