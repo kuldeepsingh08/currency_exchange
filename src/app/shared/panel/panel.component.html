@@ -3,7 +3,7 @@
     <div class="formgroup amount">
       <label for="amount">Amount</label>
       <input id="amount" type="number" placeholder="Enter amount"
-      [formControl]="enteredAmount" />
+      [formControl]="enteredAmount" min="1" />
       <div class="invalid" *ngIf="enteredAmount.errors && enteredAmount.errors.required">
         Enter amount
       </div>

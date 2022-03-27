@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/service/api.service';
 import { ALLCURRENCY } from 'src/app/modals';
+import { LATEST, SYMBOLS } from '../interfaces/interface';
 
 @Component({
   selector: 'app-panel',
@@ -13,7 +14,7 @@ export class PanelComponent implements OnInit, OnDestroy {
   fromValue = 'EUR';
   toValue = 'USD'
   latestToValue: any = '';
-  enteredAmount = new FormControl(1, [Validators.required]);
+  enteredAmount = new FormControl(1, [Validators.required, Validators.min(1)]);
   allCurrency: any;
   convertedValue: any = '--';
   historyArr: any = [];
@@ -61,11 +62,12 @@ export class PanelComponent implements OnInit, OnDestroy {
       this.selectedFromFullName = this.symbolsObj[this.fromValue];
       this.api.toValueChanges$.next(this.toValue);
     }
+    this.api.toValueChanges$.next(this.toValue);
     this.getAllSymbolLatestValue();
   }
 
   getCurrencySymbols(): void {
-    this.api.get('symbols').pipe(take(1)).subscribe((res: any) => {
+    this.api.get('symbols').pipe(take(1)).subscribe((res: SYMBOLS) => {
       this.symbolsObj = res.symbols;
       if (res && res.success) {
         this.selectedFromFullName = this.symbolsObj[this.fromValue];
@@ -90,6 +92,9 @@ export class PanelComponent implements OnInit, OnDestroy {
     this.latestToValue = eur2 / eur1;
     this.convertedValue = this.latestToValue * this.enteredAmount.value
     if (convertBtnClick) {
+      if (this.enteredAmount.errors) {
+        return;
+      }
       this.setConvertedHistory();
     }
   }
@@ -99,7 +104,7 @@ export class PanelComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.fetchNewRates) {
-      this.api.get('latest').pipe(take(1)).subscribe(response => {
+      this.api.get('latest').pipe(take(1)).subscribe((response: LATEST) => {
         if (response && response.success) {
           this.fetchNewRates = false;
           this.allRatesObj = response.rates;

@@ -96,9 +96,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
          dataSet1.push(element.rates[this.homeData.to])
       });
       this.barChartData.datasets[0].data = dataSet1;
+    })
       this.barChartData.datasets[0].label = this.homeData.to;
       this.chart?.update();
-    })
   }
 
   getFormattedDate(year: number, month: number): string{
