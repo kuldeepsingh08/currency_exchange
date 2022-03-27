@@ -11,11 +11,12 @@ import {
 
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { UserService } from '../service/user.service';
 
 @Injectable()
 export class MyInterceptor implements HttpInterceptor {
 
-    constructor(
+    constructor( private userService: UserService
         ) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -23,6 +24,9 @@ export class MyInterceptor implements HttpInterceptor {
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
                     // console.log('event', event);
+                    if (!event.body.success) {
+                      this.userService.error(event.body.error.info, event.body.error.type);
+                    }
                 }
                 return event;
             }),
