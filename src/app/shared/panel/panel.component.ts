@@ -22,6 +22,8 @@ export class PanelComponent implements OnInit, OnDestroy {
   allRatesObj: any;
   intervalTimer: any;
   fetchNewRates = true;
+  topCurrencyFlag = true;
+  topNineCurrency = ['USD', 'INR', 'GBP', 'AED', 'JPY', 'CHF', 'CAD', 'ZAR', 'RSD']
 
   constructor(private api: ApiService) { }
 
@@ -117,6 +119,10 @@ export class PanelComponent implements OnInit, OnDestroy {
           this.fetchNewRates = false;
           this.allRatesObj = response.rates;
           this.getConversion();
+          if (this.topCurrencyFlag) {
+            this.storeTopNineCurrency();
+            this.topCurrencyFlag = false;
+          }
         } else {
           this.latestToValue = 'ERROR';
         }
@@ -158,6 +164,23 @@ export class PanelComponent implements OnInit, OnDestroy {
     }
     sessionStorage.setItem('historyData', JSON.stringify(arr));
     this.api.historyEvent$.next('1');
+  }
+
+  storeTopNineCurrency(): void {
+    const historyArr = this.api.getSessionData();
+    this.topNineCurrency.forEach(element => {
+      const historyObj = {
+        from: 'EUR',
+        to: element,
+        value: this.allRatesObj[element],
+        queryValue: 1
+      };
+      // this.storeConversionHistory(historyObj, [])
+      historyArr.push(historyObj);
+      sessionStorage.setItem('historyData', JSON.stringify(historyArr));
+      this.api.historyEvent$.next('1');
+    });
+
   }
 
 }

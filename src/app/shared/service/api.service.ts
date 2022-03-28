@@ -13,7 +13,7 @@ export class ApiService {
   historyEvent$ = new BehaviorSubject('1');
   showDetails$ = new BehaviorSubject(true);
   detailsVal$ = new BehaviorSubject({});
-  fixerPastYearApiKey = 'f540df05b442f1dcbec7eb549eb8e79c';
+  fixerPastYearApiKey = '11360f215e87d5040dd8f09e1d9718f4';
   toValueChanges$ = new Subject();
 
   constructor(private http: HttpClient) { }
