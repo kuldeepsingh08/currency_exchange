@@ -13,7 +13,7 @@ import { forkJoin, Subscription } from 'rxjs';
 })
 export class DetailsComponent implements OnInit, OnDestroy {
   homeData: any;
-  previousYearDataList: Array<string> = [];
+  previousYearDataList: Array<any> = [];
   subscriptions$!: Subscription;
   subscriptions2$!: Subscription;
 
@@ -49,7 +49,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.api.showDetails$.next(false);
     const data = this.route.snapshot.queryParams.val;
     this.homeData = JSON.parse(data);
-    this.barChartData.datasets[0].label = this.homeData.to;
     this.getPastYearMonthlyData();
     this.subscriptions$ = this.api.toValueChanges$.subscribe(res => {
       if (res) {
@@ -62,7 +61,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         this.homeData.fromFullName = res.fromFullName;
         this.homeData.to = res.to;
         this.homeData.from = res.from;
-        this.chart?.update();
+        this.getPastYearMonthlyData();
       }
     });
   }
@@ -96,9 +95,10 @@ export class DetailsComponent implements OnInit, OnDestroy {
          dataSet1.push(element.rates[this.homeData.to])
       });
       this.barChartData.datasets[0].data = dataSet1;
-    })
       this.barChartData.datasets[0].label = this.homeData.to;
       this.chart?.update();
+    })
+
   }
 
   getFormattedDate(year: number, month: number): string{

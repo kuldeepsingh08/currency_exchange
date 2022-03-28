@@ -16,7 +16,7 @@
       <div class="first_row">
         <div class="formgroup">
           <label for="form">From</label>
-          <select name="" id="from" [(ngModel)]="fromValue" (change)="getLatestValue()"
+          <select name="" id="from" [(ngModel)]="fromValue" (change)="fromChanges()"
           [disabled]="!showBtn">
             <option [value]="item.symbol" *ngFor="let item of allCurrency">{{item.symbol}}</option>
           </select>
@@ -28,7 +28,7 @@
         </div>
         <div class="formgroup">
           <label for="to">To</label>
-          <select name="" id="to" [(ngModel)]="toValue" (change)="getLatestValue()">
+          <select name="" id="to" [(ngModel)]="toValue" (change)="toChanges()">
             <ng-container *ngFor="let item of allCurrency">
               <ng-container *ngIf="item.symbol !== fromValue">
                 <option [value]="item.symbol">{{item.symbol}}</option>
@@ -39,7 +39,8 @@
         </div>
       </div>
       <div class="second_row">
-        <button (click)="getConversion(true)">Convert</button>
+        <button (click)="getConversion(true)"
+        [disabled]="enteredAmount.errors">Convert</button>
       </div>
       <div class="third_row">
         <div class="converted_val">

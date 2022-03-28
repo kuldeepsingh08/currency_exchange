@@ -63,7 +63,7 @@ input {
 .second_row button {
   width: 100%;
     margin: 5px 7vw;
-    padding: 5px;
+    padding: 10px 0;
     background-color: blue;
     color: #fff;
     border: 2px solid blue;
@@ -71,7 +71,7 @@ input {
     border-radius: 5px;
 }
 .converted_val {
-  padding: 15px 40px;
+  padding: 10px 40px;
     border: 2px solid;
     width: 100%;
     text-align: center;
@@ -85,6 +85,7 @@ input {
   color: #fff;
   font-size: 13px;
   border-radius: 3px;
+  padding: 3px 50px;
 }
 .converter_img span i {
   cursor: pointer;
@@ -97,4 +98,22 @@ input {
   color: red;
   padding-top: 2px;
   font-size: 12px;
+}
+.second_row button:disabled {
+  background-color: #0000ffb3 !important;
+  border: 2px solid #0000ffb3 !important;
+  cursor: not-allowed;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .second_row button {
+    width: 50%;
+  }
+  .converted_val {
+    width: 50%;
+  }
+  .first_row {
+    width: 50%;
+  }
 }

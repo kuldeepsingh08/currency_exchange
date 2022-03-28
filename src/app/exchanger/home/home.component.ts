@@ -1,23 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/service/api.service';
-import { take } from 'rxjs/operators';
-import { ALLCURRENCY } from 'src/app/modals';
 import { Subscription } from 'rxjs';
+import { HISTORYDATA } from 'src/app/shared/interfaces/interface';
 
-interface HISTORY {
-  from: string,
-  to: string,
-  value: any,
-  queryValue: any
-}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  allCurrency: any;
-  historyArr!: HISTORY;
+  historyArr!: HISTORYDATA[];
   subscriptions$!: Subscription;
 
   constructor(private api: ApiService) { }
