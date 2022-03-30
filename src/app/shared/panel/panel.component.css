@@ -7,6 +7,8 @@
   top: 130px;
   background-color: #fff;
   margin-top: -16px;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 label {
   display: block;
@@ -17,38 +19,49 @@ label {
   align-items: center;
 } */
 .panel_left, .panel_right {
-  flex-grow: 4;
+  flex-grow: 2;
   display: flex;
   flex-direction: column;
+  margin: 0 30px;
+}
+.panel_left {
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 50px;
+}
+.panel_right {
+  gap: 15px;
 }
 .first_row {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-.second_row {
-  display: flex;
   justify-content: center;
   align-items: center;
+  gap: 25px;
+}
+.panel_right .formgroup {
+  flex: 2;
+}
+.panel_right .formgroup select {
+  width: 100%;
 }
 .third_row {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  margin: 0 7vw;
+  gap: 10px;
 }
 .panel_left .formgroup {
-  padding-left: 10px;
+  /* padding-left: 10px; */
 }
 .amount {
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
 }
 .display {
-  margin-top: 30px;
+  /* margin-top: 30px; */
   padding: 7px 0px;
-    border: 2px solid;
-    width: 100%;
-    text-align: center;
+  border: 2px solid;
+  /* width: 100%; */
+  text-align: center;
 }
 input {
   text-align: center;
@@ -62,22 +75,18 @@ input {
 }
 .second_row button {
   width: 100%;
-    margin: 5px 7vw;
-    padding: 10px 0;
-    background-color: blue;
-    color: #fff;
-    border: 2px solid blue;
-    cursor: pointer;
-    border-radius: 5px;
+  padding: 10px 0;
+  background-color: blue;
+  color: #fff;
+  border: 2px solid blue;
+  cursor: pointer;
+  border-radius: 5px;
 }
 .converted_val {
   padding: 10px 40px;
     border: 2px solid;
     width: 100%;
     text-align: center;
-}
-.more_details {
-  margin-left: 10px;
 }
 .more_details button {
   background-color: blue;
@@ -86,6 +95,9 @@ input {
   font-size: 13px;
   border-radius: 3px;
   padding: 3px 50px;
+}
+.converter_img {
+  align-self: end;
 }
 .converter_img span i {
   cursor: pointer;
@@ -107,13 +119,7 @@ input {
 
 
 @media only screen and (max-width: 600px) {
-  .second_row button {
-    width: 50%;
-  }
-  .converted_val {
-    width: 50%;
-  }
-  .first_row {
-    width: 50%;
+  .panel_left {
+    gap: 30px;
   }
 }

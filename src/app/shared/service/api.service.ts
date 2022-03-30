@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { appStrings } from '../constants/constant';
 import { HISTORYDATA } from '../interfaces/interface';
 import { Latest, PastData, Symbol } from '../modals/response.modal';
 
@@ -8,12 +9,12 @@ import { Latest, PastData, Symbol } from '../modals/response.modal';
   providedIn: 'root'
 })
 export class ApiService {
-  fixerApiKey = '941a8b11bb4cb0f2c65f1de1609306b0';
+  fixerApiKey = appStrings.newFixerApiKey;
   fixerUrl = 'http://data.fixer.io/api';
   historyEvent$ = new BehaviorSubject('1');
   showDetails$ = new BehaviorSubject(true);
   detailsVal$ = new BehaviorSubject({});
-  fixerPastYearApiKey = '11360f215e87d5040dd8f09e1d9718f4';
+  fixerPastYearApiKey = appStrings.newFixerPastDataApiKey;
   toValueChanges$ = new Subject();
 
   constructor(private http: HttpClient) { }
