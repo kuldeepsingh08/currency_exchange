@@ -25,3 +25,10 @@
   z-index: -1;
   width: 60%;
 }
+
+
+@media only screen and (max-width: 658px) {
+  .chart_container {
+    margin-top: 450px;
+  }
+}
