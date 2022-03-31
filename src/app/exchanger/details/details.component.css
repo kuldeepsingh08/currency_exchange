@@ -8,7 +8,7 @@
   background-color: #fff;
 }
 .home h3 {
-  padding: 10px 0;
+  padding: 11px 0;
 }
 .home button {
   padding: 5px 15px;
@@ -23,12 +23,12 @@
 .chart_container .header_and_chart {
   position: absolute;
   z-index: -1;
-  width: 60%;
+  width: 100%;
 }
 
 
-@media only screen and (max-width: 658px) {
+@media only screen and (max-width: 753px) {
   .chart_container {
-    margin-top: 450px;
+    margin-top: 460px;
   }
 }
