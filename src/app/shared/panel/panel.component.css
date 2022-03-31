@@ -13,11 +13,6 @@
 label {
   display: block;
 }
-/* .right_container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-} */
 .panel_left, .panel_right {
   flex-grow: 2;
   display: flex;
@@ -43,6 +38,8 @@ label {
 }
 .panel_right .formgroup select {
   width: 100%;
+  text-align: center;
+  padding: 10px;
 }
 .third_row {
   display: flex;
@@ -50,17 +47,9 @@ label {
   align-items: center;
   gap: 10px;
 }
-.panel_left .formgroup {
-  /* padding-left: 10px; */
-}
-.amount {
-  /* padding-bottom: 30px; */
-}
 .display {
-  /* margin-top: 30px; */
   padding: 7px 0px;
   border: 2px solid;
-  /* width: 100%; */
   text-align: center;
 }
 input {
@@ -70,9 +59,6 @@ input {
     width: 100%;
     padding: 5px;
   }
-.first_row select {
-  padding: 10px 50px;
-}
 .second_row button {
   width: 100%;
   padding: 10px 0;

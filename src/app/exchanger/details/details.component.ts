@@ -21,7 +21,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {},
       y: {

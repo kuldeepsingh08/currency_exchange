@@ -175,7 +175,6 @@ export class PanelComponent implements OnInit, OnDestroy {
         value: this.allRatesObj[element],
         queryValue: 1
       };
-      // this.storeConversionHistory(historyObj, [])
       historyArr.push(historyObj);
       sessionStorage.setItem('historyData', JSON.stringify(historyArr));
       this.api.historyEvent$.next('1');
